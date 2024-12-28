@@ -8,6 +8,7 @@
 #include <iostream>
 #include "vector.h"
 
+//弱转换方式，只适用于短的字符串或其他简单类型
 template<class _Key>
 class lessCoder {//编码器，将字符转换为整数，用于计算哈希值（或者自定义转换方式）
 public:
@@ -15,7 +16,7 @@ public:
 
     ~lessCoder() = default;
 
-    inline int coder(const _Key &key) {
+    inline long coder(const _Key &key) {
         union hash_t {//使用union类型，将_Key转换为整数，用于计算哈希值
             _Key key;
             long value;
@@ -40,7 +41,7 @@ struct pair {
 template<class _Key, class _Value, class _Coder=lessCoder<_Key>>
 class map {
 public:
-    map() : size_(13) {
+    map() : size_(29) {
         data_ = new pair<_Key, _Value>[size_];
         steps_ = new int[MAX_STEPS];
         for (int i = 0; i < MAX_STEPS; i++) {//计算步幅
@@ -76,6 +77,7 @@ public:
         else{//找到一个空位，插入键值对
             data_[index].first = key;
             data_[index].isExist = true;
+            //print();
             return data_[index].second;
         }
     }
@@ -88,7 +90,7 @@ private:
     int size_;//哈希表大小
 
     int hash(_Key key) {//计算哈希值
-        auto hash_value = abs(coder_.coder(key));
+        long hash_value = abs(coder_.coder(key));
         int index = hash_value % size_;
         return index;
     }
@@ -115,9 +117,8 @@ private:
         delete[] data_;
         data_ = new_data;
 
-
-
-        //print();测试用
+        //std::cout << "-------rehash-------" << std::endl;
+        //print();
 
     }
 
