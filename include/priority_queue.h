@@ -4,8 +4,12 @@
 
 #ifndef STL_PRIORITY_QUEUE_H
 #define STL_PRIORITY_QUEUE_H
+#define LEFT_CHILD(i) (2 * i + 1)
+#define RIGHT_CHILD(i) (2 * i + 2)
+#define PARENT(i) ((i - 1) / 2)
 
 #include "vector.h"
+#include <iostream>
 
 template<class _Type>
 class lessComparor {
@@ -32,9 +36,10 @@ public:
         data_.push_back(val);
         size_++;
         makeHeap();
+        //printHeap();
     }
 
-    inline _Type top() const{
+    inline _Type top() const {
         return data_[0];
     }
 
@@ -55,20 +60,47 @@ public:
     }
 
 
-
 private:
     _Comparor cmp_; // 优先级比较器
     vector<_Type> data_;    //数据容器
     int size_;              //队列大小
 
     void makeHeap() {//建立一个max-heap
-        for (auto i = size_ - 1; i > 0; i /= 2) {//从最后一个节点开始向上堆化
-            if (cmp_.smaller(data_[i / 2], data_[i])) {//如果父节点比子节点小，则交换
-                auto temp = data_[i / 2];
-                data_[i / 2] = data_[i];
-                data_[i] = temp;
-            }
+        for (auto i = (size_ - 2) / 2; i >= 0; i--) {//从最后一个非叶节点开始向上堆化
+            heapify(i);
         }
+    }
+
+    //调整堆节点，递归查找非法节点
+    void heapify(int index) {
+        int now = data_[index];
+        int left = LEFT_CHILD(index);
+        int right = RIGHT_CHILD(index);
+        int largest = index;
+        //选出最大的字节点
+        if (left < size_ && cmp_.smaller(now, data_[left])) {
+            largest = left;
+        }
+        if (right < size_ && cmp_.smaller(data_[largest], data_[right])) {
+            largest = right;
+        }
+        //向下检查是否非法
+        if (largest != index) {
+            auto temp = data_[index];
+            data_[index] = data_[largest];
+            data_[largest] = temp;
+            heapify(largest);
+
+        }
+        return;
+
+    }
+
+    void printHeap() {
+        for (int i = 0; i < size_; i++) {
+            std::cout << data_[i] << " ";
+        }
+        std::cout << std::endl;
     }
 };
 
