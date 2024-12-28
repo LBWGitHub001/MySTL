@@ -80,13 +80,13 @@ public:
     }
 
     //返回链表第一个数据节点
-    inline _Type& front() const{
-        return head->next->val;
+    inline listNode<_Type>* front() const{
+        return head->next;
     }
 
     //返回链表最后一个数据节点
-    inline _Type& back() {
-        return tail->val;
+    inline listNode<_Type>* back() {
+        return tail;
     }
 
     inline bool empty() const {
