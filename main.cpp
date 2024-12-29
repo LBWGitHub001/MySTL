@@ -7,17 +7,17 @@
 #include "map.h"
 
 int main() {
-priority_queue<int> q;
+vector<int> v;
 for(int i=0;i<1000;i++){
-    q.push(i);
+    v.push_back(i);
 }
 for(int i=0;i<1000;i++){
-    std::cout<<q.top()<<std::endl;
-    q.pop();
+    std::cout<<v[0]<<std::endl;
+    v.erase(0);
 }
-
-
-
+v.clear();
+v.erase(0);
+std::cout <<v[-1] << std::endl;
 
 
 

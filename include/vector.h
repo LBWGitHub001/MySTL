@@ -20,8 +20,8 @@ public:
 
     //使用[]操作符访问元素,同时获得读写权限
     _Type& operator[](int index) const {
-        if(index<0 || index>size_){
-            assert("out of range");
+        if(index<0 || index>=size_){
+            throw "out of range";
         }
         return data_[index];
     }
