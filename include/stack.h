@@ -14,7 +14,7 @@ public:
     stack() = default;
 
     ~stack() {
-        data_.clear();
+        //data_.clear();
     };
 
     //入栈元素
@@ -25,9 +25,9 @@ public:
     //查看栈顶元素，只读访问，不弹出
     _Type top() const {
         if (empty()) {
-            assert("stack is empty");
+            throw "stack is empty";
         }
-        return data_.front();
+        return data_.front()->val;
     }
 
     //弹出栈顶元素

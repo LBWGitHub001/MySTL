@@ -7,19 +7,17 @@
 #include "map.h"
 
 int main() {
-vector<int> v;
-for(int i=0;i<1000;i++){
-    v.push_back(i);
-}
-for(int i=0;i<1000;i++){
-    std::cout<<v[0]<<std::endl;
-    v.erase(0);
-}
-v.clear();
-v.erase(0);
-std::cout <<v[-1] << std::endl;
 
+    stack<int> s;
+for(int i=0;i<10000;i++){
+    s.push(i);
+}
 
+for(int i=0;i<10000;i++){
+    std::cout<<s.top()<<std::endl;
+    s.pop();
+}
+s.pop();
 
     return 0;
 }
