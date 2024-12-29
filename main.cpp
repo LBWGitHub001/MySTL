@@ -8,16 +8,12 @@
 
 int main() {
 
-    stack<int> s;
-for(int i=0;i<10000;i++){
-    s.push(i);
+list<int> l;
+for(int i=0;i<100;i++){
+    l.insert(i,i);
 }
 
-for(int i=0;i<10000;i++){
-    std::cout<<s.top()<<std::endl;
-    s.pop();
-}
-s.pop();
+l.clear();
 
     return 0;
 }
